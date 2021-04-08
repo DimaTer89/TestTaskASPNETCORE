@@ -1,0 +1,64 @@
+﻿@model PaginatedList<TestTask.Models.AnnouncementViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<div class="text-center">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">
+                        Title Ad
+                    </a>
+                </th>
+                <th scope="col">
+                    Price
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">
+                        Created Date
+                    </a>
+                </th>
+                <th scope="col">
+                    Link to Main Photo
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>@item.CreatedDate</td>
+                <td><button class="btn btn-link">@item.MainLinkPhoto</button></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<div class="container">
+    <a asp-action="Index"
+       style="width:100px"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       class="btn btn-primary btn-sm @prevDisabled">
+        Previous
+    </a>
+    <a asp-action="Index"
+       style="width:100px"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       class="btn btn-primary btn-sm @nextDisabled">
+        Next
+    </a>
+</div>
