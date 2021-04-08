@@ -9,7 +9,6 @@ namespace TestTask.Data
         public DbSet<LinkPhoto> Links { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
     }
